@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function getData() {
+            fetch("https://fakerapi.it/api/v1/persons")
+                .then(function (response) {
+                    response.json()
+                        .then(function (finaldata) {
+                            console.log(finaldata);
+                        })
+                })
+        }
+
+
+        // Another easy way 
+        // async function getData() {
+        //     const respone = await fetch("https://fakerapi.it/api/v1/persons")
+        //     const finaldata = await respone.json()
+        //     console.log(finaldata);
+        // }
+    </script>
+    <button onclick="getData()"> Get animal data </button>
+</body>
+
+</html>
