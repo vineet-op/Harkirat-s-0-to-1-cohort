@@ -34,7 +34,7 @@ router.post("/signin", async (req, res) => {
       token,
     });
   } else {
-    res.status(403).json({ msg: "Inccorect Credentials" });
+    res.status(403).json({ msg: "Incorrect Credentials" });
   }
 });
 
