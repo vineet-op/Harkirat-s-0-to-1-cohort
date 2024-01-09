@@ -1,4 +1,3 @@
-import "./App.css";
 import { useState } from "react";
 
 function App() {
@@ -11,12 +10,19 @@ function App() {
     {
       title: "Go Gym",
       description: "abc",
-      completed: "false",
+      completed: false,
     },
   ]);
 
+  function AddTodo() {
+    setTodos([
+      ...todos,
+      { title: "Hello", description: "zty", completedt: true },
+    ]);
+  }
   return (
     <div>
+      <button onClick={AddTodo}>Add Todo</button>
       {todos.map((todo) => {
         return (
           <Todo
