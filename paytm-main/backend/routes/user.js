@@ -3,7 +3,9 @@ const zod = require("zod");
 const { User } = require("../db");
 const router = express.Router();
 const { JWT_SECRET } = require("../config");
+const { authMiddleware } = require("../middleware");
 
+//*SignUp
 const SignupSchema = zod.object({
   username: zod.string().email(),
   password: zod.string(),
@@ -38,6 +40,15 @@ router.post("/signup", async function (req, res) {
 
   const UserId = user._id;
 
+  /// ----- Create new account ------
+
+  await Account.create({
+    UserId,
+    balance: 1 + Math.random() * 10000,
+  });
+
+  /// -----  ------
+
   const token = jwt.sign({ UserId }, JWT_SECRET);
 
   res.json({
@@ -46,6 +57,7 @@ router.post("/signup", async function (req, res) {
   });
 });
 
+//*SignIn
 const SigninSchema = zod.object({
   username: zod.string().email(),
   password: zod.string(),
@@ -68,14 +80,63 @@ router.post("/signin", async function (req, res) {
   if (user) {
     const token = jwt.sign({ UserId: user._id }, JWT_SECRET);
 
-    res.json({
-      token: token,
-    });
+    res.json({ token: token });
     return;
   }
 
   res.status(411).json({
     message: "Error While logging in",
+  });
+});
+
+//*Updating Passwords
+const updatedBody = zod.object({
+  password: zod.string().optional(),
+  firstName: zod.string().optional(),
+  lastName: zod.string().optional(),
+});
+
+router.put("/", authMiddleware, async function (req, res) {
+  const { success } = updatedBody.safeParse(req.body);
+  if (!success) {
+    res.status(411).json({ message: "Error while updating the information" });
+  }
+
+  await User.findOne(req.body, {
+    _id: req.UserId,
+  });
+
+  res.json({
+    message: "Updated successfully",
+  });
+});
+
+//* Retriving filtered users name
+router.put("/bulk", async function (req, res) {
+  const filter = req.query.filter || " ";
+
+  const users = await find({
+    $or: [
+      {
+        firstName: {
+          $regex: filter,
+        },
+      },
+      {
+        lastName: {
+          $regex: filter,
+        },
+      },
+    ],
+  });
+
+  res.json({
+    user: users.map((user) => ({
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      _id: user._id,
+    })),
   });
 });
 

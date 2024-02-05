@@ -4,7 +4,7 @@ mongoose.connect(
   "mongodb+srv://massleo100:PayTmClone@paytm.uqngsyj.mongodb.net/"
 );
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -33,8 +33,22 @@ const UserSchema = new Schema({
   },
 });
 
+const AccountSchema = mongoose.Schema({
+  UserId: {
+    type: mongoose.Schema.Types.ObjectId, // Reference to User model
+    ref: "User",
+    required: true,
+  },
+  balance: {
+    type: Number,
+    required: true,
+  },
+});
+
 const User = mongoose.model("User", UserSchema);
+const Account = mongoose.model("Account", AccountSchema);
 
 module.exports = {
   User,
+  Account,
 };
