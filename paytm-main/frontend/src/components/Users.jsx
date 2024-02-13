@@ -6,6 +6,7 @@ export const Users = () => {
   // Replace with backend call
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState("");
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/v1/user/bulk?filter=" + filter)
