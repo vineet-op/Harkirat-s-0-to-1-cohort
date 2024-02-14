@@ -46,7 +46,7 @@ InsertData()
 
 //*Inserting data by user provided fields
 
-async function InsertData(username:string, email:string , password:string){
+async function InsertData1(username:string, email:string , password:string){
     try {
         await client.connect()
         const InsertQuery = "INSERT INTO users1  (username, email, password) VALUES ($1, $2, $3);"
@@ -64,7 +64,7 @@ async function InsertData(username:string, email:string , password:string){
 
 }
 
-InsertData("username65","user65@yahoo.com","user65_pass").catch(console.error)
+InsertData1("username65","user65@yahoo.com","user65_pass").catch(console.error)
 
 //*Getting back the user data
 
