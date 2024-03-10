@@ -4,10 +4,10 @@
     "deploy": "wrangler deploy --minify src/index.ts"
   },
   "dependencies": {
-    "@100xdevs/medium-common": "^1.0.0",
     "@prisma/client": "^5.10.2",
     "@prisma/extension-accelerate": "^1.0.0",
-    "@vintech1000/medium-common": "^1.0.0",
+    "@vintech1000/common-app": "^1.0.1",
+    "@vintech1000/medium-common": "^1.0.2",
     "hono": "^4.0.9",
     "prisma": "^5.10.2"
   },
