@@ -29,9 +29,9 @@ userRouter.post("/signup", async (c) => {
       data: {
         email: body.email,
         password: body.password,
+        name: body.name,
       },
     });
-
     const token = await sign({ id: user.id }, c.env.JWT_SECRET);
     return c.json({ jwt: token });
   } catch (error) {

@@ -53,7 +53,10 @@ blogRouter.post("/", async (c) => {
       authorId: authorId,
     },
   });
-  return c.json({ id: blog.id });
+  return c.json({
+    message: "Blog Added successfully",
+    id: blog.id,
+  });
 });
 
 blogRouter.put("/", async (c) => {
@@ -77,7 +80,7 @@ blogRouter.put("/", async (c) => {
       content: body.content,
     },
   });
-  return c.json({ id: blog.id });
+  return c.json({ message: "Blog is Updated", id: blog.id });
 });
 
 //? Add paginations
